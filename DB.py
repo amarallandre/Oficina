@@ -26,6 +26,36 @@ def inserir_veiculo(placa, descricao, data_chegada, hora_chegada):
 
     fechar_conexao(conexao, cursor)
 
+def obter_ordens_servico():
+    conexao = conectar_banco()
+    cursor = conexao.cursor()
+
+    query = "SELECT placa, descricao_problema FROM veiculos"
+    cursor.execute(query)
+
+    ordens_servico = cursor.fetchall()
+
+
+    fechar_conexao(conexao, cursor)
+
+    return ordens_servico
+
+def deletar_veiculo(placa):
+    conexao = conectar_banco()
+    cursor = conexao.cursor()
+
+    query = "DELETE FROM veiculos WHERE placa = %s"
+    valores = (placa,)
+
+    try:
+        cursor.execute(query, valores)
+        conexao.commit()
+    except mysql.connector.Error as err:
+        print(f"Erro ao deletar veiculo: {err}")
+
+    fechar_conexao(conexao, cursor)
+
+
 
 def fechar_conexao(conexao, cursor):
     cursor.close()
