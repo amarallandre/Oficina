@@ -1,10 +1,12 @@
 import tkinter as tk
 from tkinter import ttk
 from DB import obter_ordens_servico, deletar_veiculo
+
 class OrdemDeServicoTab:
 
     def __init__(self, parent):
         self.tab = ttk.Frame(parent)
+        self.tab.pack()
 
         self.ordem_servico_tree = ttk.Treeview(self.tab, columns=('Placa', 'Descrição'))
         self.ordem_servico_tree.heading('Placa', text="Placa")
@@ -18,6 +20,9 @@ class OrdemDeServicoTab:
 
         self.excluir_button = ttk.Button(self.tab, text="Excluir", command=self.deletar_veiculo)
         self.excluir_button.pack(pady=10)
+
+        self.fechar_button = ttk.Button(self.tab, text="Fechar Janela", command=self.fechar_janela)
+        self.fechar_button.pack(pady=10)
 
         self.atualizar_tabela_ordem_servico()
 
@@ -43,4 +48,7 @@ class OrdemDeServicoTab:
 
             deletar_veiculo(placa)
             self.ordem_servico_tree.delete(item_selecionado)
+
+    def fechar_janela(self):
+        self.tab.master.destroy()
 

@@ -2,7 +2,7 @@ import tkinter as tk
 from tkinter import ttk
 from datetime import datetime
 from tkcalendar import DateEntry
-from DB import inserir_veiculo, obter_ordens_servico
+from DB import inserir_veiculo
 import time
 
 class ChegadaVeiculoTab:
@@ -36,6 +36,9 @@ class ChegadaVeiculoTab:
         self.cadastrar_button = ttk.Button(self.tab, text="Cadastrar", command=self.cadastrar_veiculo)
         self.cadastrar_button.pack(pady=10)
 
+        self.fechar_button = ttk.Button(self.tab, text="Fechar Janela", command=self.fechar_janela)
+        self.fechar_button.pack(pady=10)
+
         self.mensagem_label = ttk.Label(self.tab, text="")
         self.mensagem_label.pack(pady=10)
 
@@ -60,14 +63,16 @@ class ChegadaVeiculoTab:
         descricao_problema = self.descricao_entry.get()
         data_chegada = self.data_entry.get()
         hora_chegada = self.hora_entry.get()
+        if not placa or not  descricao_problema:
+            self.mensagem_label.config(text="Veículo cadastrado com sucesso!")
+        else:
+            inserir_veiculo(placa, descricao_problema, data_chegada, hora_chegada)
+            self.mensagem_label.config(text="Veículo cadastrado com sucesso!")
 
-        inserir_veiculo(placa, descricao_problema, data_chegada, hora_chegada)
-        self.mensagem_label.config(text="Veículo cadastrado com sucesso!")
+    def fechar_janela(self):
+        self.tab.master.destroy()
 
-        if self.cadastrar_button == True:
-            atualizar()
 
-    def atualizar(self):
-        root = tk.Tk()
-        root.mainloop()
+
+
 
