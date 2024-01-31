@@ -8,6 +8,12 @@ class OficinaMecanicaApp:
         self.root = root
         self.root.title("Sistema de Gerenciamento da Oficina Mecânica")
 
+        largura = 100
+        altura = 100
+
+        # Use o método geometry para definir o tamanho da janela
+        self.root.geometry(f"{largura}x{altura}")
+
         # Botão para abrir a janela Chegada do Veículo
         self.btn_chegada_veiculo = ttk.Button(self.root, text="Chegada do Veículo", command=self.abrir_chegada_veiculo)
         self.btn_chegada_veiculo.pack(pady=10)

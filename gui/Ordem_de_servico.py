@@ -1,6 +1,7 @@
-import tkinter as tk
+
 from tkinter import ttk
-from DB import obter_ordens_servico, deletar_veiculo
+from DB import obter_ordens_servico, deletar_veiculo, obter_descricao_veiculo
+from gui.detalhes_janela import DetalhesJanela
 
 class OrdemDeServicoTab:
 
@@ -15,7 +16,7 @@ class OrdemDeServicoTab:
 
         self.ordem_servico_tree.pack(pady=5)
 
-        self.selecionar_button = ttk.Button(self.tab, text="Selecionar")
+        self.selecionar_button = ttk.Button(self.tab, text="Selecionar", command=self.abrir_janela_detalhes)
         self.selecionar_button.pack(pady=10)
 
         self.excluir_button = ttk.Button(self.tab, text="Excluir", command=self.deletar_veiculo)
@@ -32,6 +33,22 @@ class OrdemDeServicoTab:
 
         for ordens_servico_item in ordens_servico:
             self.ordem_servico_tree.insert('', 'end', values=ordens_servico_item)
+
+    def abrir_janela_detalhes(self):
+        item_selecionado = self.ordem_servico_tree.selection()
+
+        if item_selecionado:
+            valores_selecionados = self.ordem_servico_tree.item(item_selecionado, 'value')
+
+            placa = valores_selecionados[0] if valores_selecionados else None
+
+            self.exibir_detalhes(placa)
+
+    def exibir_detalhes(self, placa):
+        detalhes_descricao_veiculo = obter_descricao_veiculo(placa)
+
+        if detalhes_descricao_veiculo:
+            DetalhesJanela(self.tab.master, placa, *detalhes_descricao_veiculo)
 
 
     def deletar_veiculo(self):

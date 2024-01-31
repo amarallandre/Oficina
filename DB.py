@@ -40,6 +40,19 @@ def obter_ordens_servico():
 
     return ordens_servico
 
+def obter_descricao_veiculo(placa):
+    conexao = conectar_banco()
+    cursor = conexao.cursor()
+
+    query = f"SELECT descricao_problema, data_chegada, hora_chegada FROM veiculos WHERE placa = '{placa}' "
+    cursor.execute(query)
+
+    descricao_veiculo = cursor.fetchone()
+
+    fechar_conexao(conexao, cursor)
+
+    return descricao_veiculo
+
 def deletar_veiculo(placa):
     conexao = conectar_banco()
     cursor = conexao.cursor()
