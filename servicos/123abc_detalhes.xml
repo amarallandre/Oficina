@@ -1,0 +1,9 @@
+<?xml version="1.0" ?>
+<servico>
+  <placa>123abc</placa>
+  <descricao>Freio</descricao>
+  <data_chegada>2024-01-31</data_chegada>
+  <hora_chegada>17:17:00</hora_chegada>
+  <diagnostico>123</diagnostico>
+  <valor>123</valor>
+</servico>

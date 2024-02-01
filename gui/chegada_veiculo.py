@@ -64,7 +64,7 @@ class ChegadaVeiculoTab:
         data_chegada = self.data_entry.get()
         hora_chegada = self.hora_entry.get()
         if not placa or not  descricao_problema:
-            self.mensagem_label.config(text="Veículo cadastrado com sucesso!")
+            self.mensagem_label.config(text="Por favor preencha todos os dados")
         else:
             inserir_veiculo(placa, descricao_problema, data_chegada, hora_chegada)
             self.mensagem_label.config(text="Veículo cadastrado com sucesso!")
